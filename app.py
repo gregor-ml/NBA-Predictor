@@ -11,6 +11,7 @@ import plots
 #importlib.reload(calculations)
 
 def main():
+    st.set_page_config(layout="wide")
 
     # Load and cache the model
     @st.cache_resource
@@ -50,9 +51,6 @@ def main():
         return calculations.final_calc(h_df, a_df)
 
     df = fetch_preprocessed_data()
-
-
-    st.set_page_config(layout="wide")
 
     col1, col2 = st.columns([1, 1])
 
