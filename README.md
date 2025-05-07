@@ -18,7 +18,6 @@ nba-prediction-app
 │       └── NN.keras          # Pre-trained neural network model
 ├── notebook
 │   ├── data_preprocessing_and_training_models.ipynb # Data preprocessing and model training
-│   └── data_preprocessing_and_training_models.html 
 ├── requirements.txt          # Project dependencies  
 └── README.md                 # Project documentation
 ```
