@@ -4,6 +4,7 @@ import tensorflow as tf
 import joblib
 import json
 import importlib
+from pathlib import Path
 
 # Import custom modules for calculations and plotting
 import calculations
@@ -13,12 +14,14 @@ import plots
 def main():
     # Set Streamlit page configuration to wide layout
     st.set_page_config(layout="wide")
-    
+
+    base_path = Path(__file__).resolve().parent
+
     # Cache the TensorFlow model to avoid reloading
     @st.cache_resource
     def load_model():
-        # Load the pre-trained neural network model
-        return tf.keras.models.load_model('models/NN.keras')
+        model_path = base_path / "models" / "NN.keras"
+        return tf.keras.models.load_model(model_path)
 
     # Initialize the model
     model = load_model()
@@ -26,8 +29,9 @@ def main():
     # Cache the scaler to avoid reloading
     @st.cache_resource
     def load_scaler():
+        scaler_path = base_path / "data" / "scaler.pkl"
         # Load the pre-trained scaler for data normalization
-        return joblib.load('data/scaler.pkl')
+        return joblib.load(scaler_path)
     
     # Initialize the scaler
     scaler = load_scaler()
@@ -35,7 +39,8 @@ def main():
     # Cache the PCA model to avoid reloading
     @st.cache_resource
     def load_pca():
-        return joblib.load('data/pca.pkl')
+        pca_path = base_path / "data" / "pca.pkl"
+        return joblib.load(pca_path)
 
     # Initialize the PCA model
     pca = load_pca()
@@ -43,8 +48,9 @@ def main():
     # Cache feature names for model input
     @st.cache_resource
     def load_features():
+        f_path = base_path / "data" / "features.json"
         # Load feature names from JSON file
-        with open('data/features.json', 'r') as f:
+        with open(f_path, 'r') as f:
             return json.load(f)
 
     # Initialize feature names
